@@ -28,6 +28,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -54,6 +56,8 @@ class MainActivity : ComponentActivity() {
 fun TextEntryComposable(modifier: Modifier) {
     var email by remember { mutableStateOf("") }
     var password by remember {mutableStateOf("")}
+
+    val message = stringResource(R.string.message_text, email, password)
 
     Column (
         modifier = Modifier.fillMaxSize().background(color = Color.White),
@@ -88,7 +92,7 @@ fun TextEntryComposable(modifier: Modifier) {
 
         Button(
             onClick = {
-                Log.d("LoginCredentials", "User logged in")
+                Log.d("LoginCredentials", message)
             }
         ) {
             Text("Login")
