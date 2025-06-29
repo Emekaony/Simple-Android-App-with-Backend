@@ -2,6 +2,7 @@ package com.example.firstapp
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -14,8 +15,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -26,13 +27,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.svg.SvgDecoder
 import com.example.firstapp.ui.theme.FirstAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -43,7 +45,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             FirstAppTheme {
                 Scaffold { innerPadding ->
-                    TextEntryComposable(
+                    TextComposable(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -90,8 +92,20 @@ fun TextEntryComposable(modifier: Modifier) {
 
         Spacer(Modifier.height(10.dp))
 
+        // show a toast method
+        val context = LocalContext.current
+
+        // get access to the keyboard
+        var keyboard = LocalSoftwareKeyboardController.current
+
         Button(
             onClick = {
+                // hide the keyboard if it's open so it doesn't
+                // obstruct the toast message
+                keyboard?.hide()
+
+                // toast is a way of showing messages to users
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
                 Log.d("LoginCredentials", message)
             }
         ) {
@@ -100,14 +114,20 @@ fun TextEntryComposable(modifier: Modifier) {
     }
 }
 
-@Preview
-@Composable
-fun TextEntryPreview() {
-    TextEntryComposable(Modifier)
-}
+//@Preview
+//@Composable
+//fun TextEntryPreview() {
+//    TextEntryComposable(Modifier)
+//}
 
 @Composable
 fun TextComposable(modifier: Modifier) {
+    var checked by remember { mutableStateOf(false) }
+    val models = listOf(
+        "https://api.dicebear.com/8.x/bottts/svg?seed=Bubba",
+        "https://api.dicebear.com/8.x/bottts/svg?seed=Bear"
+    )
+    
     Column (
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -115,11 +135,13 @@ fun TextComposable(modifier: Modifier) {
             .fillMaxSize()
             .background(color = Color.White)
     ) {
-        Text (
-            text = stringResource(R.string.hello_learners),
-            color = Color.Yellow,
-            fontSize = 32.sp,
-            fontWeight = FontWeight.Bold
+        Switch(checked = checked, onCheckedChange = { checked = !checked })
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(if (checked) models[0] else models[1])
+                .decoderFactory(SvgDecoder.Factory())
+                .build(),
+            contentDescription = "exercise image"
         )
     }
 }
