@@ -9,6 +9,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -49,7 +50,10 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun HelloWorld(modifier: Modifier) {
     Column (
-        modifier = modifier.fillMaxSize().background(color = Color(0xFF576861)).padding(10.dp)
+        modifier = modifier
+            .fillMaxWidth()
+            .background(color = Color(0xFF576861))
+            .padding(start = 10.dp, top = 10.dp, end = 10.dp)
     ) {
         Text(stringResource(id = R.string.little_lemon),
             color = Color(0xFFF4CE14),
