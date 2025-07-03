@@ -97,6 +97,6 @@ fun HelloWorld(modifier: Modifier) {
 @Composable
 fun HelloWorldPreview() {
     LittleLemonTheme {
-        HelloWorld(modifier = Modifier.fillMaxSize())
+        HelloWorld(Modifier)
     }
 }
