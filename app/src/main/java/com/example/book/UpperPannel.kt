@@ -27,12 +27,13 @@ import androidx.compose.ui.unit.sp
 import com.example.book.ui.theme.LittleLemonTheme
 
 @Composable
-fun UpperPannel(modifier: Modifier) {
+fun UpperPannel() {
     // get the current context for the Toast message
     val context = LocalContext.current
+//    val clicks = remember { mutableIntStateOf(0) }
 
     Column (
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
             .background(color = Color(0xFF576861))
             .padding(start = 10.dp, top = 10.dp, end = 10.dp)
@@ -73,8 +74,15 @@ fun UpperPannel(modifier: Modifier) {
             shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF4CE14), contentColor = Color.Black)
         ) {
-            Text("order")
+            Text("Order Take Away")
         }
+
+//        Text(
+//            "Clicks: ${clicks.intValue}",
+//            fontWeight = FontWeight.Bold,
+//            color = Color.White, fontSize = 20.sp,
+//            modifier = Modifier.clickable { clicks.intValue += 1 }
+//        )
     }
 }
 
@@ -83,6 +91,6 @@ fun UpperPannel(modifier: Modifier) {
 @Composable
 fun HelloWorldPreview() {
     LittleLemonTheme {
-        UpperPannel(Modifier)
+        UpperPannel()
     }
 }
