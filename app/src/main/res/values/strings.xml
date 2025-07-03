@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Book</string>
+    <string name="delete">Delete</string>
+    <string name="chicago">Chicago</string>
+    <string name="little_lemon">Little Lemon</string>
+    <string name="family_owned_message">
+        We are a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist.
+    </string>
 </resources>
