@@ -21,7 +21,8 @@ class MainActivity : ComponentActivity() {
                     Column (
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        LoginScreen()
+                        HomeScreen()
+//                        LoginScreen()
 //                        UpperPannel()
 //                        LowerPanel()
 ////                        Box(
